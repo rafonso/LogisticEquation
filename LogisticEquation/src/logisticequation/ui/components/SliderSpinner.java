@@ -4,8 +4,10 @@ import java.awt.BorderLayout;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.swing.JComponent;
 import javax.swing.JPanel;
@@ -108,7 +110,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
         this.sliderChangeListener.activate(true);
     }
 
-   private int valueToSlider(Number value, Number minimum, Number maximum) {
+    private int valueToSlider(Number value, Number minimum, Number maximum) {
         int position;
 
         if (value.equals(minimum)) {
@@ -158,6 +160,12 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
         }
     }
 
+    protected void fireStateChanged() {
+        for (ChangeListener listener : this.changeListeners) {
+            listener.stateChanged(new ChangeEvent(this));
+        }
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -198,6 +206,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
     private SpinnerPosition sliderPosition;
     private Orientation orientation;
     private SliderChangeListener sliderChangeListener;
+    private List<ChangeListener> changeListeners = new ArrayList<ChangeListener>();
 
     public String getTitulo() {
         return this.getTitledBorder().getTitle();
@@ -221,6 +230,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
             Object oldValue = this.sliderPosition;
             this.sliderPosition = order;
             super.firePropertyChange(PROP_ORDER, oldValue, this.sliderPosition);
+            this.fireStateChanged();
             this.changeOrder();
         }
     }
@@ -240,6 +250,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
             this.slider.changeOrientation(orientation);
 
             super.firePropertyChange(PROP_SLIDER_POSITION, oldValue, this.orientation);
+            this.fireStateChanged();
         }
     }
 
@@ -249,6 +260,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
         Object oldValue = this.getStep();
         spinner.setStep(step);
         super.firePropertyChange(PROP_STEP, oldValue, step);
+        this.fireStateChanged();
     }
 
     public void setPattern(String pattern) {
@@ -257,14 +269,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
         Object oldValue = this.getPattern();
         spinner.setPattern(pattern);
         super.firePropertyChange(PROP_PATTERN, oldValue, pattern);
-    }
-
-    public void setModel(SpinnerModel model) {
-        this.validateNewValue(model, "Spinner Model");
-
-        Object oldValue = this.spinner.getModel();
-        spinner.setModel(model);
-        //super.firePropertyChange(PROP_, oldValue, step);
+        this.fireStateChanged();
     }
 
     public void setMinimum(Number minimum) {
@@ -274,6 +279,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
         spinner.setMinimum(minimum);
         this.changeSliderPosition();
         super.firePropertyChange(PROP_MINIMUM, oldValue, minimum);
+        this.fireStateChanged();
     }
 
     public void setMaximum(Number maximum) {
@@ -283,6 +289,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
         spinner.setMaximum(maximum);
         this.changeSliderPosition();
         super.firePropertyChange(PROP_MAXIMUM, oldValue, maximum);
+        this.fireStateChanged();
     }
 
     public void setExtendedStep(Number extendedStep) {
@@ -290,14 +297,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
         Object oldValue = this.getExtendedStep();
         spinner.setExtendedStep(extendedStep);
         super.firePropertyChange(PROP_EXTENDED_STEP, oldValue, extendedStep);
-    }
-
-    public void setEditor(JComponent editor) {
-        this.validateNewValue(editor, "Editor");
-
-        Object oldValue = this.spinner.getEditor();
-        spinner.setEditor(editor);
-        //super.firePropertyChange(PROP_, oldValue, editor);
+        this.fireStateChanged();
     }
 
     public Number getStep() {
@@ -323,6 +323,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
     public void setValue(Number value) {
         spinner.setValue(value);
         this.changeSliderPosition();
+        this.fireStateChanged();
     }
 
     public Number getValue() {
@@ -332,6 +333,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals(JXSpinner.PROP_VALUE)) {
             this.changeSliderPosition();
+            this.fireStateChanged();
         }
         super.firePropertyChange(evt.getPropertyName(), evt.getOldValue(), evt.getNewValue());
     }
@@ -342,5 +344,13 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
         if (JXSPINNER_PROPERTIES.contains(propertyName)) {
             this.spinner.addPropertyChangeListener(propertyName, listener);
         }
+    }
+
+    public void addChangeListener(ChangeListener changeListener) {
+        this.changeListeners.add(changeListener);
+    }
+
+    public void removeChangeListener(ChangeListener changeListener) {
+        this.changeListeners.remove(changeListener);
     }
 }
