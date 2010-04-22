@@ -11,7 +11,6 @@
 package logisticequation.ui;
 
 import java.awt.Color;
-import java.util.Iterator;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import org.jdesktop.swingx.JXGraph;
@@ -25,6 +24,10 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
     /** Creates new form Logistic1 */
     public Logistic1() {
         initComponents();
+        
+        slspK.addChangeListener(this);
+        slspX0.addChangeListener(this);
+        slspIteracoes.addChangeListener(this);
     }
 
     /** This method is called from within the constructor to
@@ -41,14 +44,21 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
         pnlX0Iteracoes = new javax.swing.JPanel();
         slspX0 = new logisticequation.ui.components.SliderSpinner();
         slspIteracoes = new logisticequation.ui.components.SliderSpinner();
+        chbRastro = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.BorderLayout(5, 5));
 
         graph.setFocusable(false);
+        graph.setInputEnabled(false);
         graph.setMajorX(0.1);
         graph.setMajorY(0.1);
-        graph.setView(new java.awt.geom.Rectangle2D.Double(-0.0, -0.1, 1.1, 1.1));
+        graph.setView(new java.awt.geom.Rectangle2D.Double(-0.0, -0.1, 1.0, 1.1));
+        graph.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                graphComponentResized(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout graphLayout = new org.jdesktop.layout.GroupLayout(graph);
         graph.setLayout(graphLayout);
@@ -58,19 +68,19 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
         );
         graphLayout.setVerticalGroup(
             graphLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 296, Short.MAX_VALUE)
+            .add(0, 233, Short.MAX_VALUE)
         );
 
         getContentPane().add(graph, java.awt.BorderLayout.CENTER);
-        graph.addPlots(Color.RED, this.parabolaPlot);
-        graph.addPlots(Color.BLUE, new LinePlot());
+        graph.addPlots(Color.GREEN, this.parabolaPlot);
+        graph.addPlots(Color.LIGHT_GRAY, new LinePlot());
 
-        slspK.setStep(0.01);
         slspK.setExtendedStep(0.10);
         slspK.setMaximum(4.00);
         slspK.setMinimum(0.00);
         slspK.setOrientation(logisticequation.ui.components.SliderSpinner.Orientation.VERTICAL);
         slspK.setPattern("0.00");
+        slspK.setStep(0.01);
         slspK.setTitulo("K");
         slspK.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -79,13 +89,13 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
         });
         getContentPane().add(slspK, java.awt.BorderLayout.EAST);
 
-        pnlX0Iteracoes.setLayout(new java.awt.GridLayout(2, 1, 5, 5));
+        pnlX0Iteracoes.setLayout(new java.awt.GridLayout(3, 1, 5, 5));
 
-        slspX0.setStep(0.01);
         slspX0.setExtendedStep(0.10);
         slspX0.setMaximum(1.00);
         slspX0.setMinimum(0.00);
         slspX0.setPattern("0.00");
+        slspX0.setStep(0.01);
         slspX0.setTitulo("X0");
         pnlX0Iteracoes.add(slspX0);
 
@@ -95,18 +105,30 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
         slspIteracoes.setTitulo("Iterações");
         pnlX0Iteracoes.add(slspIteracoes);
 
+        chbRastro.setText("Exibir Rastro");
+        chbRastro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chbRastroActionPerformed(evt);
+            }
+        });
+        pnlX0Iteracoes.add(chbRastro);
+
         getContentPane().add(pnlX0Iteracoes, java.awt.BorderLayout.SOUTH);
 
-        slspK.addChangeListener(this);
-        slspX0.addChangeListener(this);
-        slspIteracoes.addChangeListener(this);
-		
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void slspKPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_slspKPropertyChange
         this.changeK();
     }//GEN-LAST:event_slspKPropertyChange
+
+    private void graphComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_graphComponentResized
+        this.repaintGraph();
+    }//GEN-LAST:event_graphComponentResized
+
+    private void chbRastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chbRastroActionPerformed
+        this.repaintGraph();
+    }//GEN-LAST:event_chbRastroActionPerformed
 
     private void changeK() {
         this.parabolaPlot.setK((Double) this.slspK.getValue());
@@ -118,7 +140,7 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
     }
 
     private void repaintGraph() {
-        this.graph.setLogisticIterator(new LogisticIterator((Double) this.slspX0.getValue(), (Double) this.slspK.getValue(), (Integer) this.slspIteracoes.getValue()));
+        this.graph.setParameters((Double) this.slspX0.getValue(), (Double) this.slspK.getValue(), (Integer) this.slspIteracoes.getValue(), this.chbRastro.isSelected());
         this.graph.repaint();
     }
 
@@ -134,6 +156,7 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox chbRastro;
     private logisticequation.ui.JXGraph1 graph;
     private javax.swing.JPanel pnlX0Iteracoes;
     private logisticequation.ui.components.SliderSpinner slspIteracoes;
@@ -167,41 +190,3 @@ class LinePlot extends JXGraph.Plot {
     }
 }
 
-class LogisticIterator implements Iterator<Double> {
-
-    private final Double k;
-    private final int maxIteracoes;
-    private Double x;
-    private int iteracao;
-
-    public LogisticIterator(Double x0, Double k, int maxIteracoes) {
-        this.k = k;
-        this.maxIteracoes = maxIteracoes;
-        this.x = x0;
-    }
-
-    private void generateNextX() {
-        this.x = this.k * this.x * (1.0 - this.x);
-        this.iteracao++;
-    }
-
-    public boolean hasNext() {
-        return (iteracao < this.maxIteracoes);
-    }
-
-    public Double next() {
-        Double currentX = this.x;
-        this.generateNextX();
-        return currentX;
-    }
-
-    public void remove() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public int getMaxIteracoes() {
-        return maxIteracoes;
-    }
-
-
-}

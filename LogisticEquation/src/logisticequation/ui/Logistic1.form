@@ -28,14 +28,18 @@
     <Container class="logisticequation.ui.JXGraph1" name="graph">
       <Properties>
         <Property name="focusable" type="boolean" value="false"/>
+        <Property name="inputEnabled" type="boolean" value="false"/>
         <Property name="majorX" type="double" value="0.1"/>
         <Property name="majorY" type="double" value="0.1"/>
         <Property name="view" type="java.awt.geom.Rectangle2D" editor="org.jdesktop.swingx.editors.Rectangle2DPropertyEditor">
-          <SerializedValue value="-84,-19,0,5,115,114,0,32,106,97,118,97,46,97,119,116,46,103,101,111,109,46,82,101,99,116,97,110,103,108,101,50,68,36,68,111,117,98,108,101,107,-39,64,-72,24,-4,80,125,2,0,4,68,0,6,104,101,105,103,104,116,68,0,5,119,105,100,116,104,68,0,1,120,68,0,1,121,120,112,63,-15,-103,-103,-103,-103,-103,-102,63,-15,-103,-103,-103,-103,-103,-102,-128,0,0,0,0,0,0,0,-65,-71,-103,-103,-103,-103,-103,-102"/>
+          <SerializedValue value="-84,-19,0,5,115,114,0,32,106,97,118,97,46,97,119,116,46,103,101,111,109,46,82,101,99,116,97,110,103,108,101,50,68,36,68,111,117,98,108,101,107,-39,64,-72,24,-4,80,125,2,0,4,68,0,6,104,101,105,103,104,116,68,0,5,119,105,100,116,104,68,0,1,120,68,0,1,121,120,112,63,-15,-103,-103,-103,-103,-103,-102,63,-16,0,0,0,0,0,0,-128,0,0,0,0,0,0,0,-65,-71,-103,-103,-103,-103,-103,-102"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="graphComponentResized"/>
+      </Events>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="graph.addPlots(Color.RED, this.parabolaPlot);&#xa;graph.addPlots(Color.BLUE, new LinePlot());"/>
+        <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="graph.addPlots(Color.GREEN, this.parabolaPlot);&#xa;graph.addPlots(Color.LIGHT_GRAY, new LinePlot());"/>
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
@@ -51,7 +55,7 @@
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="296" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="233" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -79,9 +83,6 @@
       <Events>
         <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="slspKPropertyChange"/>
       </Events>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="slspK.addChangeListener(this);"/>
-      </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
           <BorderConstraints direction="East"/>
@@ -99,7 +100,7 @@
         <Property name="columns" type="int" value="1"/>
         <Property name="horizontalGap" type="int" value="5"/>
         <Property name="verticalGap" type="int" value="5"/>
-        <Property name="rows" type="int" value="2"/>
+        <Property name="rows" type="int" value="3"/>
       </Layout>
       <SubComponents>
         <Component class="logisticequation.ui.components.SliderSpinner" name="slspX0">
@@ -119,9 +120,6 @@
             </Property>
             <Property name="titulo" type="java.lang.String" value="X0"/>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="slspX0.addChangeListener(this);"/>
-          </AuxValues>
         </Component>
         <Component class="logisticequation.ui.components.SliderSpinner" name="slspIteracoes">
           <Properties>
@@ -134,9 +132,14 @@
             <Property name="pattern" type="java.lang.String" value="0000"/>
             <Property name="titulo" type="java.lang.String" value="Itera&#xe7;&#xf5;es"/>
           </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="slspIteracoes.addChangeListener(this);"/>
-          </AuxValues>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="chbRastro">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Exibir Rastro"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chbRastroActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
