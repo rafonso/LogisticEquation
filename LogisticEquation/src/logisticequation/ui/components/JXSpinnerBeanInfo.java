@@ -172,6 +172,7 @@ public class JXSpinnerBeanInfo extends SimpleBeanInfo {
             properties[PROPERTY_editor] = new PropertyDescriptor ( "editor", logisticequation.ui.components.JXSpinner.class, "getEditor", "setEditor" ); // NOI18N
             properties[PROPERTY_enabled] = new PropertyDescriptor ( "enabled", logisticequation.ui.components.JXSpinner.class, "isEnabled", "setEnabled" ); // NOI18N
             properties[PROPERTY_extendedStep] = new PropertyDescriptor ( "extendedStep", logisticequation.ui.components.JXSpinner.class, "getExtendedStep", "setExtendedStep" ); // NOI18N
+            properties[PROPERTY_extendedStep].setPreferred ( true );
             properties[PROPERTY_focusable] = new PropertyDescriptor ( "focusable", logisticequation.ui.components.JXSpinner.class, "isFocusable", "setFocusable" ); // NOI18N
             properties[PROPERTY_focusCycleRoot] = new PropertyDescriptor ( "focusCycleRoot", logisticequation.ui.components.JXSpinner.class, "isFocusCycleRoot", "setFocusCycleRoot" ); // NOI18N
             properties[PROPERTY_focusCycleRootAncestor] = new PropertyDescriptor ( "focusCycleRootAncestor", logisticequation.ui.components.JXSpinner.class, "getFocusCycleRootAncestor", null ); // NOI18N
@@ -208,9 +209,11 @@ public class JXSpinnerBeanInfo extends SimpleBeanInfo {
             properties[PROPERTY_locationOnScreen] = new PropertyDescriptor ( "locationOnScreen", logisticequation.ui.components.JXSpinner.class, "getLocationOnScreen", null ); // NOI18N
             properties[PROPERTY_managingFocus] = new PropertyDescriptor ( "managingFocus", logisticequation.ui.components.JXSpinner.class, "isManagingFocus", null ); // NOI18N
             properties[PROPERTY_maximum] = new PropertyDescriptor ( "maximum", logisticequation.ui.components.JXSpinner.class, "getMaximum", "setMaximum" ); // NOI18N
+            properties[PROPERTY_maximum].setPreferred ( true );
             properties[PROPERTY_maximumSize] = new PropertyDescriptor ( "maximumSize", logisticequation.ui.components.JXSpinner.class, "getMaximumSize", "setMaximumSize" ); // NOI18N
             properties[PROPERTY_maximumSizeSet] = new PropertyDescriptor ( "maximumSizeSet", logisticequation.ui.components.JXSpinner.class, "isMaximumSizeSet", null ); // NOI18N
             properties[PROPERTY_minimum] = new PropertyDescriptor ( "minimum", logisticequation.ui.components.JXSpinner.class, "getMinimum", "setMinimum" ); // NOI18N
+            properties[PROPERTY_minimum].setPreferred ( true );
             properties[PROPERTY_minimumSize] = new PropertyDescriptor ( "minimumSize", logisticequation.ui.components.JXSpinner.class, "getMinimumSize", "setMinimumSize" ); // NOI18N
             properties[PROPERTY_minimumSizeSet] = new PropertyDescriptor ( "minimumSizeSet", logisticequation.ui.components.JXSpinner.class, "isMinimumSizeSet", null ); // NOI18N
             properties[PROPERTY_model] = new PropertyDescriptor ( "model", logisticequation.ui.components.JXSpinner.class, "getModel", "setModel" ); // NOI18N
@@ -227,6 +230,7 @@ public class JXSpinnerBeanInfo extends SimpleBeanInfo {
             properties[PROPERTY_paintingTile] = new PropertyDescriptor ( "paintingTile", logisticequation.ui.components.JXSpinner.class, "isPaintingTile", null ); // NOI18N
             properties[PROPERTY_parent] = new PropertyDescriptor ( "parent", logisticequation.ui.components.JXSpinner.class, "getParent", null ); // NOI18N
             properties[PROPERTY_pattern] = new PropertyDescriptor ( "pattern", logisticequation.ui.components.JXSpinner.class, "getPattern", "setPattern" ); // NOI18N
+            properties[PROPERTY_pattern].setPreferred ( true );
             properties[PROPERTY_peer] = new PropertyDescriptor ( "peer", logisticequation.ui.components.JXSpinner.class, "getPeer", null ); // NOI18N
             properties[PROPERTY_preferredSize] = new PropertyDescriptor ( "preferredSize", logisticequation.ui.components.JXSpinner.class, "getPreferredSize", "setPreferredSize" ); // NOI18N
             properties[PROPERTY_preferredSizeSet] = new PropertyDescriptor ( "preferredSizeSet", logisticequation.ui.components.JXSpinner.class, "isPreferredSizeSet", null ); // NOI18N
@@ -238,6 +242,7 @@ public class JXSpinnerBeanInfo extends SimpleBeanInfo {
             properties[PROPERTY_showing] = new PropertyDescriptor ( "showing", logisticequation.ui.components.JXSpinner.class, "isShowing", null ); // NOI18N
             properties[PROPERTY_size] = new PropertyDescriptor ( "size", logisticequation.ui.components.JXSpinner.class, "getSize", "setSize" ); // NOI18N
             properties[PROPERTY_step] = new PropertyDescriptor ( "step", logisticequation.ui.components.JXSpinner.class, "getStep", "setStep" ); // NOI18N
+            properties[PROPERTY_step].setPreferred ( true );
             properties[PROPERTY_toolkit] = new PropertyDescriptor ( "toolkit", logisticequation.ui.components.JXSpinner.class, "getToolkit", null ); // NOI18N
             properties[PROPERTY_toolTipText] = new PropertyDescriptor ( "toolTipText", logisticequation.ui.components.JXSpinner.class, "getToolTipText", "setToolTipText" ); // NOI18N
             properties[PROPERTY_topLevelAncestor] = new PropertyDescriptor ( "topLevelAncestor", logisticequation.ui.components.JXSpinner.class, "getTopLevelAncestor", null ); // NOI18N
@@ -248,6 +253,7 @@ public class JXSpinnerBeanInfo extends SimpleBeanInfo {
             properties[PROPERTY_valid] = new PropertyDescriptor ( "valid", logisticequation.ui.components.JXSpinner.class, "isValid", null ); // NOI18N
             properties[PROPERTY_validateRoot] = new PropertyDescriptor ( "validateRoot", logisticequation.ui.components.JXSpinner.class, "isValidateRoot", null ); // NOI18N
             properties[PROPERTY_value] = new PropertyDescriptor ( "value", logisticequation.ui.components.JXSpinner.class, "getValue", "setValue" ); // NOI18N
+            properties[PROPERTY_value].setPreferred ( true );
             properties[PROPERTY_verifyInputWhenFocusTarget] = new PropertyDescriptor ( "verifyInputWhenFocusTarget", logisticequation.ui.components.JXSpinner.class, "getVerifyInputWhenFocusTarget", "setVerifyInputWhenFocusTarget" ); // NOI18N
             properties[PROPERTY_vetoableChangeListeners] = new PropertyDescriptor ( "vetoableChangeListeners", logisticequation.ui.components.JXSpinner.class, "getVetoableChangeListeners", null ); // NOI18N
             properties[PROPERTY_visible] = new PropertyDescriptor ( "visible", logisticequation.ui.components.JXSpinner.class, "isVisible", "setVisible" ); // NOI18N

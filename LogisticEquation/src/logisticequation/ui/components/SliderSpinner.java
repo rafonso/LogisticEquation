@@ -9,10 +9,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.SpinnerModel;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -78,6 +76,7 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
     public static final String PROP_TITULO = "titulo";
     public static final String PROP_ORDER = "order";
     public static final String PROP_SLIDER_POSITION = "sliderPosition";
+    public static final String PROP_INTERVALS = "intervals";
     public static final String PROP_EXTENDED_STEP = JXSpinner.PROP_EXTENDED_STEP;
     public static final String PROP_MAXIMUM = JXSpinner.PROP_MAXIMUM;
     public static final String PROP_MINIMUM = JXSpinner.PROP_MINIMUM;
@@ -300,6 +299,17 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
         this.fireStateChanged();
     }
 
+    public void setIntervals(int intervals) {
+        if (intervals <= 0) {
+            throw new IllegalArgumentException("Intervalo deve ser maior que 0. Valor recebido: " + intervals);
+        }
+
+        int oldValue = this.slider.getMaximum();
+        this.slider.setMaximum(intervals);
+        super.firePropertyChange(PROP_INTERVALS, oldValue, intervals);
+        this.fireStateChanged();
+    }
+
     public Number getStep() {
         return spinner.getStep();
     }
@@ -328,6 +338,10 @@ public class SliderSpinner extends JPanel implements PropertyChangeListener {
 
     public Number getValue() {
         return (Number) spinner.getValue();
+    }
+
+    public int getIntervals() {
+        return this.slider.getMaximum();
     }
 
     public void propertyChange(PropertyChangeEvent evt) {

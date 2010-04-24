@@ -47,12 +47,15 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
         chbRastro = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Equação Logistica");
         getContentPane().setLayout(new java.awt.BorderLayout(5, 5));
 
         graph.setFocusable(false);
         graph.setInputEnabled(false);
         graph.setMajorX(0.1);
         graph.setMajorY(0.1);
+        graph.setMinorCountX(5);
+        graph.setMinorCountY(5);
         graph.setView(new java.awt.geom.Rectangle2D.Double(-0.0, -0.1, 1.0, 1.1));
         graph.addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
@@ -64,23 +67,24 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
         graph.setLayout(graphLayout);
         graphLayout.setHorizontalGroup(
             graphLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 413, Short.MAX_VALUE)
+            .add(0, 401, Short.MAX_VALUE)
         );
         graphLayout.setVerticalGroup(
             graphLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 233, Short.MAX_VALUE)
+            .add(0, 218, Short.MAX_VALUE)
         );
 
         getContentPane().add(graph, java.awt.BorderLayout.CENTER);
         graph.addPlots(Color.GREEN, this.parabolaPlot);
         graph.addPlots(Color.LIGHT_GRAY, new LinePlot());
 
-        slspK.setExtendedStep(0.10);
+        slspK.setExtendedStep(0.100);
+        slspK.setIntervals(4000);
         slspK.setMaximum(4.00);
         slspK.setMinimum(0.00);
         slspK.setOrientation(logisticequation.ui.components.SliderSpinner.Orientation.VERTICAL);
-        slspK.setPattern("0.00");
-        slspK.setStep(0.01);
+        slspK.setPattern("0.000");
+        slspK.setStep(0.001);
         slspK.setTitulo("K");
         slspK.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
@@ -100,11 +104,13 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
         pnlX0Iteracoes.add(slspX0);
 
         slspIteracoes.setExtendedStep(10);
-        slspIteracoes.setMaximum(1000);
+        slspIteracoes.setIntervals(2000);
+        slspIteracoes.setMaximum(2000);
         slspIteracoes.setPattern("0000");
         slspIteracoes.setTitulo("Iterações");
         pnlX0Iteracoes.add(slspIteracoes);
 
+        chbRastro.setMnemonic('E');
         chbRastro.setText("Exibir Rastro");
         chbRastro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
