@@ -1,19 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * Logistic1.java
- *
- * Created on 20/04/2010, 20:52:43
- */
 package logisticequation.ui;
 
 import java.awt.Color;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import org.jdesktop.swingx.JXGraph;
 
 /**
  *
@@ -24,10 +13,11 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
     /** Creates new form Logistic1 */
     public Logistic1() {
         initComponents();
-        
+
         slspK.addChangeListener(this);
         slspX0.addChangeListener(this);
         slspIteracoes.addChangeListener(this);
+        slspIgnorados.addChangeListener(this);
     }
 
     /** This method is called from within the constructor to
@@ -44,7 +34,9 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
         pnlX0Iteracoes = new javax.swing.JPanel();
         slspX0 = new logisticequation.ui.components.SliderSpinner();
         slspIteracoes = new logisticequation.ui.components.SliderSpinner();
+        jPanel1 = new javax.swing.JPanel();
         chbRastro = new javax.swing.JCheckBox();
+        slspIgnorados = new logisticequation.ui.components.SliderSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Equação Logistica");
@@ -67,11 +59,11 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
         graph.setLayout(graphLayout);
         graphLayout.setHorizontalGroup(
             graphLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 401, Short.MAX_VALUE)
+            .add(0, 421, Short.MAX_VALUE)
         );
         graphLayout.setVerticalGroup(
             graphLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 218, Short.MAX_VALUE)
+            .add(0, 257, Short.MAX_VALUE)
         );
 
         getContentPane().add(graph, java.awt.BorderLayout.CENTER);
@@ -110,6 +102,8 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
         slspIteracoes.setTitulo("Iterações");
         pnlX0Iteracoes.add(slspIteracoes);
 
+        jPanel1.setLayout(new java.awt.BorderLayout(5, 5));
+
         chbRastro.setMnemonic('E');
         chbRastro.setText("Exibir Rastro");
         chbRastro.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +111,17 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
                 chbRastroActionPerformed(evt);
             }
         });
-        pnlX0Iteracoes.add(chbRastro);
+        jPanel1.add(chbRastro, java.awt.BorderLayout.WEST);
+
+        slspIgnorados.setExtendedStep(10);
+        slspIgnorados.setMaximum(100);
+        slspIgnorados.setMinimum(0);
+        slspIgnorados.setPattern(" 00");
+        slspIgnorados.setTitulo("Porcentagem das iterações a serem ignoradas");
+        slspIgnorados.setValue(0);
+        jPanel1.add(slspIgnorados, java.awt.BorderLayout.CENTER);
+
+        pnlX0Iteracoes.add(jPanel1);
 
         getContentPane().add(pnlX0Iteracoes, java.awt.BorderLayout.SOUTH);
 
@@ -146,7 +150,7 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
     }
 
     private void repaintGraph() {
-        this.graph.setParameters((Double) this.slspX0.getValue(), (Double) this.slspK.getValue(), (Integer) this.slspIteracoes.getValue(), this.chbRastro.isSelected());
+        this.graph.setParameters((Double) this.slspX0.getValue(), (Double) this.slspK.getValue(), (Integer) this.slspIteracoes.getValue(), this.chbRastro.isSelected(), (Integer) this.slspIgnorados.getValue());
         this.graph.repaint();
     }
 
@@ -164,35 +168,12 @@ public class Logistic1 extends javax.swing.JFrame implements ChangeListener {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox chbRastro;
     private logisticequation.ui.JXGraph1 graph;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel pnlX0Iteracoes;
+    private logisticequation.ui.components.SliderSpinner slspIgnorados;
     private logisticequation.ui.components.SliderSpinner slspIteracoes;
     private logisticequation.ui.components.SliderSpinner slspK;
     private logisticequation.ui.components.SliderSpinner slspX0;
     // End of variables declaration//GEN-END:variables
-    private ParabolaPlot parabolaPlot = new ParabolaPlot();
+    private LogisticPlot parabolaPlot = new LogisticPlot();
 }
-
-class ParabolaPlot extends JXGraph.Plot {
-
-    private double k;
-
-    public void setK(double k) {
-        double oldK = k;
-        this.k = k;
-        super.firePropertyChange("k", oldK, this.k);
-    }
-
-    @Override
-    public double compute(double x) {
-        return k * x * (1 - x);
-    }
-}
-
-class LinePlot extends JXGraph.Plot {
-
-    @Override
-    public double compute(double x) {
-        return x;
-    }
-}
-
