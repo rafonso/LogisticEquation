@@ -38,7 +38,7 @@ public class LogisticX0Generator {
             final int resolution) {
         this.validateArguments(N, r, intervals, resolution);
 
-        QuadraticGenerator quadraticGenerator = new QuadraticGenerator();
+        QuadraticGenerator quadraticGenerator = QuadraticGenerator.getGenerator(BigDecimal.class);
         final BigDecimal pass = BigDecimal.ONE.divide(new BigDecimal(
                 intervals), QuadraticElement.MATH_CONTEXT);
         BigDecimal x0 = BigDecimal.ZERO;

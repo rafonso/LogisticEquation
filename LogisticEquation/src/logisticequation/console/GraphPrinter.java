@@ -25,7 +25,7 @@ public class GraphPrinter implements Observer {
 	private void printColunn(final QuadraticElement element) {
 		final int pos = (int) (MAX * element.getY().doubleValue());
 
-		System.out.printf("%0" + iSize + "d |", element.getI());
+		System.out.printf("%0" + iSize + "d |", element.getIteraction());
 		if (pos > 0) {
 			int espacoInferior = pos - 1;
 			int espacoSuperior = MAX - pos;
@@ -44,7 +44,7 @@ public class GraphPrinter implements Observer {
 //		if (element == QuadraticElement.START) {
 //		} else if (element == QuadraticElement.END) {
 //		} else 
-			if (element.getI() > 0) {
+			if (element.getIteraction() > 0) {
 			printColunn(element);
 		}
 	}
@@ -73,7 +73,7 @@ public class GraphPrinter implements Observer {
 			BigDecimal x0 = new BigDecimal(commandLine.getOptionValue("x0"));
 //			BigDecimal x0 = BigDecimal.ONE.subtract(BigDecimal.ONE.divide(r, QuadraticElement.MATH_CONTEXT), QuadraticElement.MATH_CONTEXT);
 
-			QuadraticGenerator generator = new QuadraticGenerator();
+			QuadraticGenerator generator = QuadraticGenerator.getGenerator(BigDecimal.class);
 			generator.getObservable().addObserver(new GraphPrinter(n));
 			generator.generate(n, x0, r);
 		} catch (ParseException e) {

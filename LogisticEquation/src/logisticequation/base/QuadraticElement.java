@@ -8,13 +8,6 @@ import java.util.Iterator;
 public abstract class QuadraticElement<N extends Number> implements Serializable,
         Iterator<QuadraticElement<N>> {
 
-    /*	public static final QuadraticElement START = new QuadraticElement(
-    Integer.MIN_VALUE, Integer.MIN_VALUE, BigDecimal.ZERO,
-    BigDecimal.ZERO, QuadraticElement.MAX_R);
-    public static final QuadraticElement END = new QuadraticElement(
-    Integer.MAX_VALUE, Integer.MAX_VALUE, BigDecimal.ZERO,
-    BigDecimal.ZERO, QuadraticElement.MAX_R);
-     */
     public static final BigDecimal MAX_R = new BigDecimal(4.0);
     public static final MathContext MATH_CONTEXT = new MathContext(10);
     /**
@@ -22,15 +15,15 @@ public abstract class QuadraticElement<N extends Number> implements Serializable
      */
     private static final long serialVersionUID = -3708367355823083363L;
     private final int maxIteractions;
-    private final int i;
+    private final int iteraction;
     private final N x;
     private final N y;
     private final N r;
 
-    protected QuadraticElement(int n, int i, N x, N y,
+    protected QuadraticElement(int maxIteractions, int iteraction, N x, N y,
             N r) {
-        this.maxIteractions = n;
-        this.i = i;
+        this.maxIteractions = maxIteractions;
+        this.iteraction = iteraction;
         this.x = x;
         this.y = y;
         this.r = r;
@@ -40,8 +33,8 @@ public abstract class QuadraticElement<N extends Number> implements Serializable
         return maxIteractions;
     }
 
-    public int getI() {
-        return i;
+    public int getIteraction() {
+        return iteraction;
     }
 
     public N getX() {
@@ -56,31 +49,19 @@ public abstract class QuadraticElement<N extends Number> implements Serializable
         return r;
     }
 
-    public N getNextY() {
-        return this.getNextY(this.y);
+    protected N getNextY() {
+        return this.getNextY(this.getX());
     }
 
     public abstract N getNextY(N _x);
-    /*	{
-    return null;
-    BigDecimal fator1 = r.multiply(_x, MATH_CONTEXT);
-    BigDecimal fator2 = BigDecimal.ONE.subtract(_x, MATH_CONTEXT);
-    return fator1.multiply(fator2, MATH_CONTEXT);
-    }
-     */
 
     @Override
     public boolean hasNext() {
-        return (this.i < this.maxIteractions);
+        return (this.iteraction < this.maxIteractions);
     }
 
     @Override
-    public abstract QuadraticElement<N> next();/* {
-    N nextY = this.getNextY();
-    return new QuadraticElement(this.N, this.i + 1, this.y, nextY, this.r);
-    }
-     */
-
+    public abstract QuadraticElement<N> next();
 
     @Override
     public void remove() {
@@ -91,6 +72,6 @@ public abstract class QuadraticElement<N extends Number> implements Serializable
     public String toString() {
         return String.format(
                 "[i = %05d, x = %1.10f, y = %1.10f, r = %1.10f, N = %05d]",
-                this.i, this.x, this.y, this.r, this.maxIteractions);
+                this.iteraction, this.x, this.y, this.r, this.maxIteractions);
     }
 }

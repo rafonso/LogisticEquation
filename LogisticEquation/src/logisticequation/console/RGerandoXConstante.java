@@ -93,7 +93,7 @@ public class RGerandoXConstante implements Observer {
 		BigDecimal step = MAX_R.subtract(ONE).divide(new BigDecimal(intervals),
 				MATH_CONTEXT);
 
-		QuadraticGenerator quadraticGenerator = new QuadraticGenerator();
+		QuadraticGenerator quadraticGenerator = QuadraticGenerator.getGenerator(BigDecimal.class);
 		for (int i = 0; i < intervals; i++) {
 			BigDecimal x0 = r.subtract(ONE, MATH_CONTEXT).divide(r,
 					MATH_CONTEXT);

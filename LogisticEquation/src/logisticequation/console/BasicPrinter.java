@@ -47,7 +47,7 @@ public class BasicPrinter implements Observer {
 			BigDecimal x0 = new BigDecimal(commandLine.getOptionValue("x0"));
 			BigDecimal r = new BigDecimal(commandLine.getOptionValue("r"));
 
-			QuadraticGenerator generator = new QuadraticGenerator();
+			QuadraticGenerator generator = QuadraticGenerator.getGenerator(BigDecimal.class);
 			generator.getObservable().addObserver(new BasicPrinter());
 			generator.generate(n, x0, r);
 		} catch (ParseException e) {

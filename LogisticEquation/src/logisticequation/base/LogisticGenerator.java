@@ -58,7 +58,7 @@ public class LogisticGenerator {
             final BigDecimal rFinal) {
         this.validateArguments(N, x0, intervals, resolution, rInitial, rFinal);
 
-        QuadraticGenerator quadraticGenerator = new QuadraticGenerator();
+        QuadraticGenerator quadraticGenerator = QuadraticGenerator.getGenerator(BigDecimal.class);
         final BigDecimal step = (rFinal.subtract(rInitial,
                 QuadraticElement.MATH_CONTEXT)).divide(
                 new BigDecimal(intervals), QuadraticElement.MATH_CONTEXT);

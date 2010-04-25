@@ -12,14 +12,14 @@ public class QuadraticElementDecimal extends QuadraticElement<BigDecimal> {
     public static final MathContext BASIC_MATH_CONTEXT = new MathContext(10);
     private final MathContext mathContext;
 
-    public QuadraticElementDecimal(int n, int i, BigDecimal x, BigDecimal y,
+    public QuadraticElementDecimal(int maxIteractions, int iteraction, BigDecimal x, BigDecimal y,
             BigDecimal r) {
-        this(n, i, x, y, r, BASIC_MATH_CONTEXT);
+        this(maxIteractions, iteraction, x, y, r, MathContext.DECIMAL64);
     }
 
-    public QuadraticElementDecimal(int n, int i, BigDecimal x, BigDecimal y,
+    public QuadraticElementDecimal(int maxIteractions, int iteraction, BigDecimal x, BigDecimal y,
             BigDecimal r, MathContext mathContext) {
-        super(n, i, x, y, r);
+        super(maxIteractions, iteraction, x, y, r);
         this.mathContext = mathContext;
     }
 
@@ -32,7 +32,7 @@ public class QuadraticElementDecimal extends QuadraticElement<BigDecimal> {
 
     @Override
     public QuadraticElement<BigDecimal> next() {
-        return new QuadraticElementDecimal(super.getMaxIteractions(), super.getI() + 1,
+        return new QuadraticElementDecimal(super.getMaxIteractions(), super.getIteraction() + 1,
                 super.getY(), super.getNextY(), super.getR(), this.mathContext);
     }
 }

@@ -3,7 +3,7 @@ package logisticequation.base;
 import java.math.BigDecimal;
 import java.util.Observable;
 
-public class QuadraticGenerator {
+public abstract class QuadraticGenerator<N extends Number> {
 
     private final Observable observable = new Observable() {
 
@@ -21,36 +21,35 @@ public class QuadraticGenerator {
         return observable;
     }
 
-    private void validateArguments(final int N, final BigDecimal x0,
-            final BigDecimal r) throws IllegalArgumentException {
-        if (N < 1) {
-            throw new IllegalArgumentException("N must be greater than 0, not "
-                    + N);
-        }
-        if ((x0.compareTo(BigDecimal.ZERO) < 0)
-                || (x0.compareTo(BigDecimal.ONE) > 0)) {
-            throw new IllegalArgumentException(
-                    "x0 must be between 0 and 1, not " + x0);
-        }
-        if ((r.compareTo(BigDecimal.ZERO) < 0)
-                || (r.compareTo(QuadraticElement.MAX_R) > 0)) {
-            throw new IllegalArgumentException(
-                    "r must be between 0 and 4, not " + r);
-        }
-    }
+    protected abstract void validateArguments(final int maxIteractions, final N x0, final N r) throws IllegalArgumentException;
 
-    public void generate(final int N, final BigDecimal x0, final BigDecimal r) {
-        validateArguments(N, x0, r);
+    protected abstract QuadraticElement<N> getElementFrom(final int maxIteractions, final int iteraction, N x, N y, N r);
 
-        QuadraticElement<BigDecimal> quadraticElement = new QuadraticElementDecimal(N, 0, x0,
-                BigDecimal.ZERO, r);
+    protected abstract N getZero();
+
+    public void generate(final int maxIteractions, final N x0, final N r) {
+        validateArguments(maxIteractions, x0, r);
+
+        QuadraticElement quadraticElement = getElementFrom(maxIteractions, 0, x0, this.getZero(), r);
         this.observable.notifyObservers(quadraticElement);
 
-        quadraticElement = new QuadraticElementDecimal(N, 1, x0, (BigDecimal) quadraticElement.getNextY(x0), r);
+        quadraticElement = getElementFrom(maxIteractions, 1, x0, (N) quadraticElement.getNextY(x0), r);
         this.observable.notifyObservers(quadraticElement);
+
         while (quadraticElement.hasNext()) {
             quadraticElement = quadraticElement.next();
             this.observable.notifyObservers(quadraticElement);
         }
+    }
+
+    public static QuadraticGenerator getGenerator(Class numberClass) {
+        if(numberClass == Double.class) {
+            return new QuadraticGeneratorDouble();
+        }
+        if(numberClass == BigDecimal.class) {
+            return new QuadraticGeneratorDecimal();
+        }
+
+        throw new IllegalArgumentException("Classe descinhecida: " + numberClass);
     }
 }

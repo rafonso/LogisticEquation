@@ -36,7 +36,7 @@ public class TablePrinter implements Observer {
 //		} else if (element == QuadraticElement.END) {
 //			System.out.println(this.line);
 //		} else {
-			System.out.printf(this.formatLine, element.getI(), element.getX(),
+			System.out.printf(this.formatLine, element.getIteraction(), element.getX(),
 					element.getY());
 //		}
 	}
@@ -49,7 +49,7 @@ public class TablePrinter implements Observer {
 		BigDecimal x0 = new BigDecimal(args[1]);
 		BigDecimal r = new BigDecimal(args[2]);
 
-		QuadraticGenerator generator = new QuadraticGenerator();
+		QuadraticGenerator generator = QuadraticGenerator.getGenerator(BigDecimal.class);
 		generator.getObservable().addObserver(new TablePrinter(n));
 		generator.generate(n, x0, r);
 	}
