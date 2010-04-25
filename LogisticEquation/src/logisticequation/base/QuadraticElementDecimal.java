@@ -32,7 +32,7 @@ public class QuadraticElementDecimal extends QuadraticElement<BigDecimal> {
 
     @Override
     public QuadraticElement<BigDecimal> next() {
-        return new QuadraticElementDecimal(super.getN(), super.getI() + 1,
+        return new QuadraticElementDecimal(super.getMaxIteractions(), super.getI() + 1,
                 super.getY(), super.getNextY(), super.getR(), this.mathContext);
     }
 }

@@ -21,7 +21,7 @@ public abstract class QuadraticElement<N extends Number> implements Serializable
      *
      */
     private static final long serialVersionUID = -3708367355823083363L;
-    private final int N;
+    private final int maxIteractions;
     private final int i;
     private final N x;
     private final N y;
@@ -29,15 +29,15 @@ public abstract class QuadraticElement<N extends Number> implements Serializable
 
     protected QuadraticElement(int n, int i, N x, N y,
             N r) {
-        this.N = n;
+        this.maxIteractions = n;
         this.i = i;
         this.x = x;
         this.y = y;
         this.r = r;
     }
 
-    public int getN() {
-        return N;
+    public int getMaxIteractions() {
+        return maxIteractions;
     }
 
     public int getI() {
@@ -71,7 +71,7 @@ public abstract class QuadraticElement<N extends Number> implements Serializable
 
     @Override
     public boolean hasNext() {
-        return (this.i < this.N);
+        return (this.i < this.maxIteractions);
     }
 
     @Override
@@ -91,6 +91,6 @@ public abstract class QuadraticElement<N extends Number> implements Serializable
     public String toString() {
         return String.format(
                 "[i = %05d, x = %1.10f, y = %1.10f, r = %1.10f, N = %05d]",
-                this.i, this.x, this.y, this.r, this.N);
+                this.i, this.x, this.y, this.r, this.maxIteractions);
     }
 }
