@@ -68,6 +68,14 @@ public abstract class QuadraticElement<N extends Number> implements Serializable
         throw new UnsupportedOperationException();
     }
 
+    public boolean isFirstIteraction() {
+        return (this.getIteraction() == 0);
+    }
+
+    public boolean isLastIteraction() {
+        return (this.getIteraction() == this.getMaxIteractions());
+    }
+
     @Override
     public String toString() {
         return String.format(
