@@ -9,6 +9,8 @@ interface ColorMake {
 
 class SimpleColorMake implements ColorMake {
 
+    public static final SimpleColorMake INSTANCE = new SimpleColorMake();
+
     public Color getColor(int iteracao, int maxIteracoes) {
         return Color.RED;
     }
@@ -69,6 +71,8 @@ class SimpleColorMake implements ColorMake {
  *
  */
 class RastroColorMake implements ColorMake {
+
+    public static final RastroColorMake INSTANCE = new RastroColorMake();
 
     private static final int MAX_COLOR = 0xFF;
 
