@@ -12,33 +12,30 @@ import java.util.Scanner;
  *
  * @author rafael
  */
-public class TestQuadraticGenerator implements Observer {
+public class TestQuadraticGenerator1 implements Observer {
 
-    private List<Double> doubleValue = new ArrayList<Double>();
-    private List<BigDecimal> decimalValue = new ArrayList<BigDecimal>();
+    private List<QuadraticElement> doubleValue = new ArrayList<QuadraticElement>();
+    private List<QuadraticElement> decimalValue = new ArrayList<QuadraticElement>();
     private boolean isDouble = false;
 
     public void update(Observable o, Object object) {
         QuadraticElement element = (QuadraticElement) object;
         if(isDouble) {
-            doubleValue.add(element.getY().doubleValue());
+            doubleValue.add(element);
         } else {
-            decimalValue.add((BigDecimal) element.getY());
+            decimalValue.add(element);
         }
     }
 
     private void print() {
-        System.out.println("iter|   double   | BigDecimal | Difference |");
+        System.out.println("iter|   double   | BigDecimal | ");
 
-        Iterator<Double> itDouble  = doubleValue.iterator();
-        Iterator<BigDecimal> itDecimal = decimalValue.iterator();
+        Iterator<QuadraticElement> itDouble  = doubleValue.iterator();
+        Iterator<QuadraticElement> itDecimal = decimalValue.iterator();
 
         int i = 0;
         while(itDouble.hasNext() && itDecimal.hasNext()) {
-            final Double dbl = itDouble.next();
-            final BigDecimal dec = itDecimal.next();
-            final double diff = dbl - dec.doubleValue();
-            System.out.printf("%04d| %1.16f | %1.16f | % 1.16f |%n", i, dbl, dec, diff);
+            System.out.printf("%04d| %s | %s | %n", i, itDouble.next(), itDecimal.next());
             i ++;
         }
     }
@@ -54,7 +51,7 @@ public class TestQuadraticGenerator implements Observer {
         System.out.println("r = " + r);
         System.out.println("iterações = " + iteracoes);
 
-        TestQuadraticGenerator testQuadraticGenerator = new TestQuadraticGenerator();
+        TestQuadraticGenerator1 testQuadraticGenerator = new TestQuadraticGenerator1();
 
         QuadraticGenerator generator = QuadraticGenerator.getGenerator(Double.class);
         testQuadraticGenerator.isDouble = true;
