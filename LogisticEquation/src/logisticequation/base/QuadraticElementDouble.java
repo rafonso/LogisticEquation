@@ -18,7 +18,7 @@ public class QuadraticElementDouble extends QuadraticElement<Double>{
     @Override
     public QuadraticElement<Double> next() {
         return new QuadraticElementDouble(super.getMaxIteractions(), super.getIteraction() + 1,
-                super.getY(), super.getNextY(), super.getR());
+                super.getY(), this.getNextY(super.getY()), super.getR());
     }
 
 }
